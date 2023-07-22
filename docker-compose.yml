@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  jenkins:
+    container_name: gha_runner
+    image: gha_runner:latest
+    restart: always
+    volumes:
+      - ./exec-runner.sh:/actions-runner/exec-runner.sh
+    env_file:
+      - env.sh
+    command: /actions-runner/exec-runner.sh
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: 1M
+        max-file: '3'
